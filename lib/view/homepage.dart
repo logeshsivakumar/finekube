@@ -1,5 +1,6 @@
 import 'package:finekube/view/bottomnavigationbarui.dart';
 import 'package:finekube/view/horizondallist.dart';
+import 'package:finekube/view/userlistui.dart';
 import 'package:finekube/viewmodel/homepageviewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
             } else {
               if (dataSnapshot.error != null) {
                 return const Center(
-                  child: Text('An error occured'),
+                  child: Text('An error occurred'),
                 );
               } else {
                 return Column(
@@ -44,28 +45,13 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 15.h,
                     ),
-                    Expanded(
+                     const Expanded(
                       flex: 3,
-                      child: Padding(
-                        padding:  EdgeInsets.only(left:10.sp,),
-                        child:const HorizontalList(),
-                      ),
+                      child:  HorizontalList(),
                     ),
                     Expanded(
                       flex: 5,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 8.sp,right: 8.sp),
-                        child: Align(
-                          child: Container(
-                           // height: double.infinity,
-                            width:  double.infinity,
-                            decoration:  BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20.sp)),
-                            ),
-                          ),
-                        ),
-                      ),
+                      child: UserListUI(homePageModel: dataSnapshot.data!,)
                     )
                   ],
                 );
@@ -99,7 +85,9 @@ class _HomePageState extends State<HomePage> {
         ),
         Padding(
           padding: EdgeInsets.only(right: 15.w),
-          child:const ImageIcon(AssetImage('assets/images/notifications.png')),
+          child:InkWell(
+              onTap: (){},
+              child: const ImageIcon(AssetImage('assets/images/notifications.png'))),
         )
       ],
     );

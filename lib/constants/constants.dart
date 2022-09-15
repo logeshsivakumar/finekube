@@ -9,4 +9,5 @@ class ColorConstants {
   static Color gradientEndColor = const Color(0xFF99C0C6);
   static Color roundTileColor = const Color(0xFF21262B);
   static Color yellowColor = const Color(0xFFDDF247);
+  static Color scaffoldBgColor = const Color(0xFFDbecf0);
 }

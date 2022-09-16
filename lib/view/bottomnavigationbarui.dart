@@ -4,14 +4,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constants/constants.dart';
 
 
-class BottomNavigationBarUI extends StatelessWidget {
+class BottomNavigationBarUI extends StatefulWidget {
   const BottomNavigationBarUI({Key? key}) : super(key: key);
 
+  @override
+  State<BottomNavigationBarUI> createState() => _BottomNavigationBarUIState();
+}
+
+class _BottomNavigationBarUIState extends State<BottomNavigationBarUI> {
+  int _currentIndex =0;
   @override
   Widget build(BuildContext context) {
     return  Padding(
       padding:  EdgeInsets.only(top:5.h),
       child: BottomNavigationBar(
+        currentIndex:_currentIndex ,
+        onTap: (index){
+          setState((){
+            _currentIndex = index;
+          });
+        },
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: TextStyle(color: ColorConstants.tileHalfGrey),
         unselectedLabelStyle: const TextStyle(color: Colors.grey),

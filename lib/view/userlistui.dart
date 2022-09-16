@@ -19,7 +19,10 @@ class _UserListUIState extends State<UserListUI> {
 
 
   Future refresh() async{
+    setState((){
+      
 
+    });
   }
 
   @override
@@ -58,30 +61,30 @@ class _UserListUIState extends State<UserListUI> {
                 ),
               ),
               Consumer<HomePageViewModel>(builder: (context, provider, child) {
-                return FutureBuilder<HomePageModel>(
-                  future: provider.fetchHomePageData(),
-                  builder: (context, dataSnapshot) {
-                    if (dataSnapshot.connectionState == ConnectionState.waiting) {
-                      return  Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 50.h),
-                          child:const CircularProgressIndicator(),
-                        ),
-                      );
-                    } else {
-                      if (dataSnapshot.error != null) {
-                        return  Padding(
-                          padding: EdgeInsets.only(top: 50.h),
-                          child:const Center(
-                            child: Text('An error occurred'),
+                return RefreshIndicator(
+                  onRefresh: refresh,
+                  child: FutureBuilder<HomePageModel>(
+                    future: provider.fetchHomePageData(),
+                    builder: (context, dataSnapshot) {
+                      if (dataSnapshot.connectionState == ConnectionState.waiting) {
+                        return  Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 50.h),
+                            child:const CircularProgressIndicator(),
                           ),
                         );
                       } else {
-                        return  Expanded(
-                          child: Padding(
-                            padding:  EdgeInsets.only(bottom:15.w),
-                            child: RefreshIndicator(
-                              onRefresh: refresh,
+                        if (dataSnapshot.error != null) {
+                          return  Padding(
+                            padding: EdgeInsets.only(top: 50.h),
+                            child:const Center(
+                              child: Text('An error occurred'),
+                            ),
+                          );
+                        } else {
+                          return  Expanded(
+                            child: Padding(
+                              padding:  EdgeInsets.only(bottom:15.w),
                               child: ListView.builder(
                                   itemCount: dataSnapshot.data!.data!.length,
                                   itemBuilder:(context,index){
@@ -143,11 +146,11 @@ class _UserListUIState extends State<UserListUI> {
                                             )));
                                   } ),
                             ),
-                          ),
-                        );
+                          );
+                        }
                       }
-                    }
-                  },
+                    },
+                  ),
                 );
               }),
 

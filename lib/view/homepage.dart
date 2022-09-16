@@ -1,5 +1,6 @@
 import 'package:finekube/view/bottomnavigationbarui.dart';
 import 'package:finekube/view/horizondallist.dart';
+import 'package:finekube/view/roundedbutton.dart';
 import 'package:finekube/view/userlistui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
           Positioned.fill(
               top: 250.h,
               left: 10.w,
-              child: roundedButton()),
+              child:const RoundedButton()),
         ],
       ),
       bottomNavigationBar:const BottomNavigationBarUI(),
@@ -76,58 +77,6 @@ class _HomePageState extends State<HomePage> {
               child: const ImageIcon(AssetImage('assets/images/notifications.png'))),
         )
       ],
-    );
-  }
-
-  Widget roundedButton(){
-    List<String> buttonName =['NEW','PAY OFF','LEND','MORE'];
-    List<String> icon =['assets/images/plus.png','assets/images/topright-arrow.png','assets/images/bottomleft_arrow.png','assets/images/grid.png'];
-    return  Padding(
-      padding:  EdgeInsets.only(left:10.sp,),
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: List.generate(
-          4, (i) =>  Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(50.0),
-              child: Container(
-                height: 90,
-                width: 90,
-                decoration: BoxDecoration(
-                    gradient:const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomCenter,
-                        colors: [Colors.white60,Colors.white10]
-                    ),
-                    borderRadius: BorderRadius.circular(25),
-                    border: Border.all(width: 2,color: Colors.white30)
-                ),
-                child: Center(
-                  child: Container(
-                    height: 65,
-                    width: 65,
-                    decoration: BoxDecoration(
-                      color: ColorConstants.roundTileColor,
-                      borderRadius: BorderRadius.circular(30),
-                      // border: Border.all(width: 2,color: Colors.black)
-                    ),
-                    child:  Center(
-                      child:  Image.asset(icon[i],scale: 5,)
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Text(buttonName[i],style: GoogleFonts.lato(
-            fontSize: 10.sp,
-                color: Colors.black,
-              fontWeight: FontWeight.w600
-                ))
-          ],
-        ),
-        ),
-      ),
     );
   }
 }

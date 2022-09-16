@@ -40,130 +40,134 @@ class _UserListUIState extends State<UserListUI> {
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(20.sp)),
         ),
-        child: SingleChildScrollView(
-          physics:const ScrollPhysics(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top:55.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding:  EdgeInsets.only(left:15.w),
-                      child: Text("My debts",style: GoogleFonts.lato(
-                          fontSize: 20.sp,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500)),
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(right:15.w),
-                      child: Text("See All",style: GoogleFonts.lato(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top:55.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding:  EdgeInsets.only(left:15.w),
+                    child: Text("My debts",style: GoogleFonts.lato(
                         fontSize: 20.sp,
-                        color: Colors.grey,
-                      )),
-                    ),
-                  ],
-                ),
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500)),
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.only(right:15.w),
+                    child: Text("See All",style: GoogleFonts.lato(
+                      fontSize: 20.sp,
+                      color: Colors.grey,
+                    )),
+                  ),
+                ],
               ),
-            RefreshIndicator(
-                  onRefresh:loadList,
-                  child: FutureBuilder<HomePageModel>(
-                    future: dataFuture,
-                    builder: (context, dataSnapshot) {
-                      if (dataSnapshot.connectionState == ConnectionState.waiting) {
-                        return  Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 50.h),
-                            child:const CircularProgressIndicator(),
+            ),
+          RefreshIndicator(
+                onRefresh:loadList,
+                child: FutureBuilder<HomePageModel>(
+                  future: dataFuture,
+                  builder: (context, dataSnapshot) {
+                    if (dataSnapshot.connectionState == ConnectionState.waiting) {
+                      return  Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 50.h),
+                          child:const CircularProgressIndicator(),
+                        ),
+                      );
+                    } else {
+                      if (dataSnapshot.error != null) {
+                        return Padding(
+                          padding: EdgeInsets.only(top: 50.h),
+                          child:const Center(
+                            child: Text('An error occurred'),
                           ),
                         );
                       } else {
-                        if (dataSnapshot.error != null) {
-                          return Padding(
-                            padding: EdgeInsets.only(top: 50.h),
-                            child:const Center(
-                              child: Text('An error occurred'),
-                            ),
-                          );
-                        } else {
-                          return userList(dataSnapshot.data!);
-                        }
+                        return SizedBox(
+                            height: 230.h,
+                            child: userList1(dataSnapshot.data!));
                       }
-                    },
-                  ),
+                    }
+                  },
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       ),
     );
   }
-
-  Widget userList(HomePageModel dataSnapshot){
-    return  ListView.builder(
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        itemCount: dataSnapshot.data!.length,
-        itemBuilder:(context,index){
-          return Card(
-              margin: EdgeInsets.all(5.sp),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              elevation: 1.0,
-              child: SizedBox(
-                  height: 50.h,
-                  child: Padding(
-                    padding: EdgeInsets.all(10.sp),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.network(dataSnapshot.data![index].img.toString()),
-                        Padding(
-                          padding: EdgeInsets.only(left:5.w),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(dataSnapshot.data![index].name.toString(),style: GoogleFonts.lato(
-                                  fontSize: 14.sp,
-                                  color:ColorConstants.roundTileColor,
-                                  fontWeight: FontWeight.w600
-                              )),
-                              Text("Until ${dataSnapshot.data![index].until.toString()}",style: GoogleFonts.lato(
-                                fontSize: 12.sp,
-                                color:Colors.grey,
-                                //fontWeight: FontWeight.w600
-                              )),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding:  EdgeInsets.only(left:100.w),
-                          child: Column(
-                            children: [
-                              Text(dataSnapshot.data![index].amount.toString(),style: GoogleFonts.lato(
-                                  fontSize: 14.sp,
-                                  color:ColorConstants.tileColorOrange,
-                                  fontWeight: FontWeight.w600
-                              )),
-                              SizedBox(
-                                height: 1.h,
+  Widget userList1(HomePageModel dataSnapshot) {
+    return  CustomScrollView(
+      shrinkWrap: true,
+      slivers: <Widget>[
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+                (context, index) {
+              return Card(
+                  margin: EdgeInsets.all(5.sp),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  elevation: 1.0,
+                  child: SizedBox(
+                      height: 50.h,
+                      child: Padding(
+                        padding: EdgeInsets.all(10.sp),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.network(dataSnapshot.data![index].img.toString()),
+                            Padding(
+                              padding: EdgeInsets.only(left:5.w),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(dataSnapshot.data![index].name.toString(),style: GoogleFonts.lato(
+                                      fontSize: 14.sp,
+                                      color:ColorConstants.roundTileColor,
+                                      fontWeight: FontWeight.w600
+                                  )),
+                                  Text("Until ${dataSnapshot.data![index].until.toString()}",style: GoogleFonts.lato(
+                                    fontSize: 12.sp,
+                                    color:Colors.grey,
+                                    //fontWeight: FontWeight.w600
+                                  )),
+                                ],
                               ),
-                              Text("Out of ${dataSnapshot.data![index].outOfAmount.toString()}",style: GoogleFonts.lato(
-                                  fontSize: 12.sp,
-                                  color:Colors.grey
-                              )),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  )));
-        } );
+                            ),
+                            Padding(
+                              padding:  EdgeInsets.only(left:100.w),
+                              child: Column(
+                                children: [
+                                  Text(dataSnapshot.data![index].amount.toString(),style: GoogleFonts.lato(
+                                      fontSize: 14.sp,
+                                      color:ColorConstants.tileColorOrange,
+                                      fontWeight: FontWeight.w600
+                                  )),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Text("Out of ${dataSnapshot.data![index].outOfAmount.toString()}",style: GoogleFonts.lato(
+                                      fontSize: 12.sp,
+                                      color:Colors.grey
+                                  )),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )));
+            },
+            childCount: dataSnapshot.data!.length,
+          ),
+        ),
+      ],
+    );
   }
 }
 

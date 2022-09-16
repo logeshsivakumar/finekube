@@ -12,7 +12,7 @@ class HorizontalList extends StatelessWidget {
     List<Color> colors = [ColorConstants.roundTileColor,ColorConstants.tileColorGreen,ColorConstants.tileColorOrange,ColorConstants.tileHalfBlue];
     List<String> header = ["I owe","Owe me","I owe","Owe me"];
     List<String> price = ["\$ 1852","\$ 1250","\$ 1130","\$ 1752"];
-    List<String> icon = ["top_right_arrow.png","bottom_left_arrow.png","top_right_arrow.png","bottom_left_arrow.png",];
+    List<String> icon = ["assets/images/top_right_arrow.png","assets/images/bottom_left_arrow.png","assets/images/top_right_arrow.png","assets/images/bottom_left_arrow.png",];
     return Padding(
       padding:  EdgeInsets.only(left:10.sp,),
       child: ListView(
@@ -28,39 +28,43 @@ class HorizontalList extends StatelessWidget {
               ),
               height:180.h,
               width:150.w,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding:EdgeInsets.only(top:50.h),
+                    child: Column(
                       children: [
                         Padding(
-                          padding:  EdgeInsets.only(top:40.h,left: 10.w),
+                          padding:EdgeInsets.only(right: 15.w),
                           child: Text(header[i], style: GoogleFonts.lato(
-                            fontSize: 20.sp,
+                            fontSize: 16.sp,
                             color: Colors.white,
                           )),
                         ),
-                        //  Expanded(child: Image.asset("notifications.png"))
+                        Padding(
+                          padding:  EdgeInsets.only(top:10.h,left: 10.w),
+                          child: Text(price[i], style: GoogleFonts.lato(
+                            fontSize: 26.sp,
+                            color: Colors.white,
+                          )),
+                        ),
+                        Padding(
+                          padding:  EdgeInsets.only(top:5.h,right: 15.w),
+                          child: Text("2 debts", style: GoogleFonts.lato(
+                            fontSize: 16.sp,
+                            color: Colors.white,
+                          )),
+                        ),
                       ],
                     ),
-                    Padding(
-                      padding:  EdgeInsets.only(top:15.h,left: 10.w),
-                      child: Text(price[i], style: GoogleFonts.lato(
-                        fontSize: 30.sp,
-                        color: Colors.white,
-                      )),
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(top:15.h,left: 10.w),
-                      child: Text("2 debts", style: GoogleFonts.lato(
-                        fontSize: 20.sp,
-                        color: Colors.white,
-                      )),
-                    )
-                  ],
-                ),
+                  ),
+                  Expanded(child: Padding(
+                    padding:  EdgeInsets.only(top: 20.w,right: 10.w),
+                    child: Image.asset(icon[i],scale: 3,),
+                  ))
+                ],
               ),
             ),
           ),

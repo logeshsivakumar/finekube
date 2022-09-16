@@ -1,12 +1,14 @@
+import 'package:finekube/model/homepagemodel.dart';
 import 'package:finekube/utils/customwidgets.dart';
 import 'package:finekube/view/bottomnavigationbarui.dart';
 import 'package:finekube/view/horizondallist.dart';
 import 'package:finekube/view/roundedbutton.dart';
 import 'package:finekube/view/userlistui.dart';
+import 'package:finekube/viewmodel/homepageviewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../constants/constants.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,11 +18,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstants.scaffoldBgColor,
-      body:Stack(
+      body: Stack(
         children: [
           Column(
             children: [
@@ -31,24 +34,20 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 15.h,
               ),
-              const Expanded(
+              const Flexible(
                 flex: 3,
-                child:  HorizontalList(),
+                child: HorizontalList(),
               ),
-              const Expanded(
-                  flex: 5,
-                  child: UserListUI()
+              const Flexible(
+                flex: 5,
+                child:UserListUI()
               )
             ],
           ),
-          Positioned.fill(
-              top: 250.h,
-              left: 10.w,
-              child:const RoundedButton()),
+          Positioned.fill(top: 250.h, left: 10.w, child: const RoundedButton()),
         ],
       ),
-      bottomNavigationBar:const BottomNavigationBarUI(),
+      bottomNavigationBar: const BottomNavigationBarUI(),
     );
   }
-
 }

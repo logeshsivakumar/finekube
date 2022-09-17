@@ -1,13 +1,11 @@
-import 'package:finekube/model/homepagemodel.dart';
+
 import 'package:finekube/utils/customwidgets.dart';
 import 'package:finekube/view/bottomnavigationbarui.dart';
 import 'package:finekube/view/horizondallist.dart';
 import 'package:finekube/view/roundedbutton.dart';
 import 'package:finekube/view/userlistui.dart';
-import 'package:finekube/viewmodel/homepageviewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../constants/constants.dart';
 
 class HomePage extends StatefulWidget {
@@ -44,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-          Positioned.fill(top: 250.h, left: 10.w,bottom: 250.0, child: const RoundedButton()),
+          Positioned.fill(top: 250.h, left: 10.w,bottom: 250.h, child: const RoundedButton()),
         ],
       ),
       bottomNavigationBar: const BottomNavigationBarUI(),

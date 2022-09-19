@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-          Positioned.fill(top: 250.h, left: 10.w,bottom: 250.h, child: const RoundedButton()),
+          Positioned.fill(top: 242.h, left: 10.w,bottom: 210.h, child: const RoundedButton()),
         ],
       ),
       bottomNavigationBar: const BottomNavigationBarUI(),

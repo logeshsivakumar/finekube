@@ -19,26 +19,26 @@ class RoundedButton extends StatelessWidget {
           4, (i) =>  Column(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(50.0),
+              borderRadius: BorderRadius.circular(50.sp),
               child: Container(
-                height: 90,
-                width: 90,
+                height: 80.h,
+                width: 80.w,
                 decoration: BoxDecoration(
                     gradient:const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomCenter,
                         colors: [Colors.white60,Colors.white10]
                     ),
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(25.sp),
                     border: Border.all(width: 2,color: Colors.white30)
                 ),
                 child: Center(
                   child: Container(
-                    height: 65,
-                    width: 65,
+                    height: 58.h,
+                    width: 58.w,
                     decoration: BoxDecoration(
                       color: ColorConstants.roundTileColor,
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(50.sp),
                       // border: Border.all(width: 2,color: Colors.black)
                     ),
                     child:  Center(
@@ -48,11 +48,13 @@ class RoundedButton extends StatelessWidget {
                 ),
               ),
             ),
-            Text(buttonName[i],style: GoogleFonts.lato(
-                fontSize: 10.sp,
-                color: Colors.black,
-                fontWeight: FontWeight.w600
-            ))
+            Flexible(
+              child: Text(buttonName[i],style: GoogleFonts.lato(
+                  fontSize: 10.sp,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600
+              )),
+            ),
           ],
         ),
         ),

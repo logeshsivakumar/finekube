@@ -41,60 +41,62 @@ class _UserListUIState extends State<UserListUI> {
           color: Colors.white,
           borderRadius: BorderRadius.only(topRight:Radius.circular(20.sp),topLeft:Radius.circular(20.sp) ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 55.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 15.w),
-                    child: Text("My debts",
-                        style: GoogleFonts.lato(
-                            fontSize: 20.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 15.w),
-                    child: Text("See All",
-                        style: GoogleFonts.lato(
-                          fontSize: 20.sp,
-                          color: Colors.grey,
-                        )),
-                  ),
-                ],
-              ),
-            ),
-            FutureBuilder<HomePageModel>(
-              future: dataFuture,
-              builder: (context, dataSnapshot) {
-                if (dataSnapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 50.h),
-                      child: const CircularProgressIndicator(),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 55.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.w),
+                      child: Text("My debts",
+                          style: GoogleFonts.lato(
+                              fontSize: 20.sp,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500)),
                     ),
-                  );
-                } else {
-                  if (dataSnapshot.error != null) {
-                    return Padding(
-                      padding: EdgeInsets.only(top: 50.h),
-                      child: const Center(
-                        child: Text('An error occurred'),
+                    Padding(
+                      padding: EdgeInsets.only(right: 15.w),
+                      child: Text("See All",
+                          style: GoogleFonts.lato(
+                            fontSize: 20.sp,
+                            color: Colors.grey,
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+              FutureBuilder<HomePageModel>(
+                future: dataFuture,
+                builder: (context, dataSnapshot) {
+                  if (dataSnapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 50.h),
+                        child: const CircularProgressIndicator(),
                       ),
                     );
                   } else {
-                    return SizedBox(
-                        height: 230.h, child: userList(dataSnapshot.data!));
+                    if (dataSnapshot.error != null) {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 50.h),
+                        child: const Center(
+                          child: Text('An error occurred'),
+                        ),
+                      );
+                    } else {
+                      return SizedBox(
+                          height: 230.h, child: userList(dataSnapshot.data!));
+                    }
                   }
-                }
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -139,13 +141,15 @@ class _UserListUIState extends State<UserListUI> {
                                             color:
                                                 ColorConstants.roundTileColor,
                                             fontWeight: FontWeight.w600)),
-                                    Text(
-                                        "Until ${dataSnapshot.data![index].until.toString()}",
-                                        style: GoogleFonts.lato(
-                                          fontSize: 12.sp,
-                                          color: Colors.grey,
-                                          //fontWeight: FontWeight.w600
-                                        )),
+                                    Flexible(
+                                      child: Text(
+                                          "Until ${dataSnapshot.data![index].until.toString()}",
+                                          style: GoogleFonts.lato(
+                                            fontSize: 12.sp,
+                                            color: Colors.grey,
+                                            //fontWeight: FontWeight.w600
+                                          )),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -164,11 +168,13 @@ class _UserListUIState extends State<UserListUI> {
                                     SizedBox(
                                       height: 1.h,
                                     ),
-                                    Text(
-                                        "Out of ${dataSnapshot.data![index].outOfAmount.toString()}",
-                                        style: GoogleFonts.lato(
-                                            fontSize: 12.sp,
-                                            color: Colors.grey)),
+                                    Flexible(
+                                      child: Text(
+                                          "Out of ${dataSnapshot.data![index].outOfAmount.toString()}",
+                                          style: GoogleFonts.lato(
+                                              fontSize: 12.sp,
+                                              color: Colors.grey)),
+                                    ),
                                   ],
                                 ),
                               )
